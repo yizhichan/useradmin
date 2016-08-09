@@ -5,7 +5,7 @@
  使用时，请将此文件放到与项目目录平级并设置下面的项目目录！否则将影响cron定时任务与队列处理！
  */
 set_time_limit(0);                                          //设置超时时间
-$web    = 'admin';               //设置项目目录名称
+$web    = 'web';               //设置项目目录名称
 $cmdDir = dirname(__FILE__);                                //获取当前路径
 $webDir = realpath($cmdDir . '/' . $web);
 $libDir = realpath($webDir . '/../Spring');
