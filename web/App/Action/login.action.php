@@ -1,14 +1,14 @@
 <?
 /**
- * 项目首页
+ * 登录
  *
- * 首页内容展示
+ * 登录
  *
  * @package	Action
  * @author	Xuni
  * @since	2016-08-10
  */
-class IndexAction extends AppAction
+class LoginAction extends AppAction
 {
 
 	/**

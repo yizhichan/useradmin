@@ -1,14 +1,14 @@
 <?
 /**
- * 项目首页
+ * 会员列表
  *
- * 首页内容展示
+ * 会员列表显示
  *
  * @package	Action
  * @author	Xuni
  * @since	2016-08-10
  */
-class IndexAction extends AppAction
+class MemberAction extends AppAction
 {
 
 	/**

@@ -32,38 +32,8 @@ abstract class AppAction extends Action
 	*/
 	public function before()
 	{
-		$mods = array(
-			'index'			=> '*',
-			'login'			=> '*',
-			'register'		=> '*',
-			'buybrand'		=> '*',
-			'lostpassword'	=> '*',
-			'authcode'		=> '*',
-			'test'	=> '*',
-
-		);
-		if(strpos($_SERVER['HTTP_REFERER'],SELLER_URL)!==false){ //如果是出售者平台过来的记录来源
-		    Session::set("source",1);
-		}
-		$allow  = false;
-		$mod	= $this->mod;
-		if ( isset($mods[$mod]) ) {
-			if ( is_array($mods[$mod]) ) {
-				$allow = in_array($action, $mods[$mod]) ? true : false;
-
-			} else {
-				$allow = $mods[$mod] == '*' ? true : false;
-			}
-		}
-		$isLogin = $this->setLoginUser();
-		if ( !$allow && !$isLogin) {
-			$this->redirect('', '/login/index');
-			exit;
-		}
-		//$ucmenu = require ConfigDir.'/menu.config.php';
-		//$this->set('ucmenu',$ucmenu);
-		$this->set('current_url', '/'.$this->mod .'/' . $this->action.'/');
-		$this->set('title',$this->pageTitle);
+		$this->set('_mod_', $this->mod);
+		$this->set('_act_', $this->action);
 	}
 
 	/**
