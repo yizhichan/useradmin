@@ -31,7 +31,6 @@ class AdminUserModule extends AppModule
 		$r['limit'] = 1;
 
 		return $this->import('user')->find($r);
-
 	}
 
 	public function getList($param, $page, $num)
@@ -55,6 +54,27 @@ class AdminUserModule extends AppModule
 			'isUse' 	=> 2,
 			);
 		return $this->import('user')->create($data);
+	}
+
+	public function getInfoById($userId)
+	{
+		$r = array();
+		$r['eq'] 	= array('id'=>$userId);
+		$r['limit'] = 1;
+
+		return $this->import('user')->find($r);
+	}
+
+	public function updateUser($data, $r)
+	{
+		return $this->import('user')->modify($data, $r);
+	}
+
+	public function changePass($userId, $newpass)
+	{
+		$data = array('password'=>getPasswordMd5($newpass));
+		$r = array('eq'=>array('id'=>$userId));
+		return $this->updateUser($data, $r);
 	}
 	
 }

@@ -9,11 +9,11 @@
                 <ul class="breadcrumb">
                     <li>
                         <i class="icon-home home-icon"></i>
-                        <a href="#">首页</a>
+                        <a href="/">首页</a>
                     </li>
 
                     <li>
-                        <a href="#">后台设置</a>
+                        <a href="/user">后台设置</a>
                     </li>
                     <li class="active">修改密码</li>
                 </ul><!-- .breadcrumb -->
@@ -43,14 +43,14 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
 
-                        <form class="form-horizontal" role="form">
+                        <form id="form-changepass" class="form-horizontal" role="form" action="/user/changePass" method="POST">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 原密码 </label>
 
                                 <div class="col-sm-9">
-                                    <input type="password" id="form-field-2" placeholder="Password" class="col-xs-10 col-sm-5" />
+                                    <input type="password" id="changepass-oldpass" name="oldpass" placeholder="Password" class="col-xs-10 col-sm-5" />
                                     <span class="help-inline col-xs-12 col-sm-7">
-                                        <span class="middle">Inline help text</span>
+                                        <span class="middle"></span>
                                     </span>
                                 </div>
                             </div>
@@ -61,9 +61,9 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 新密码 </label>
 
                                 <div class="col-sm-9">
-                                    <input type="password" id="form-field-2" placeholder="Password" class="col-xs-10 col-sm-5" />
+                                    <input type="password" id="changepass-newpass" name="newpass" placeholder="Password" class="col-xs-10 col-sm-5" />
                                     <span class="help-inline col-xs-12 col-sm-7">
-                                        <span class="middle">Inline help text</span>
+                                        <span class="middle"></span>
                                     </span>
                                 </div>
                             </div>
@@ -74,9 +74,9 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 重复新密码 </label>
 
                                 <div class="col-sm-9">
-                                    <input type="password" id="form-field-2" placeholder="Password" class="col-xs-10 col-sm-5" />
+                                    <input type="password" id="changepass-newpass2" name="newpass2" placeholder="Password" class="col-xs-10 col-sm-5" />
                                     <span class="help-inline col-xs-12 col-sm-7">
-                                        <span class="middle">Inline help text</span>
+                                        <span class="middle"></span>
                                     </span>
                                 </div>
                             </div>
@@ -85,15 +85,15 @@
 
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-3 col-md-9">
-                                    <button class="btn btn-info" type="button">
+                                    <button class="btn btn-info" id="sub-changepass" type="button">
                                         <i class="icon-ok bigger-110"></i>
-                                        Submit
+                                        提交
                                     </button>
 
                                     &nbsp; &nbsp; &nbsp;
                                     <button class="btn" type="reset">
                                         <i class="icon-undo bigger-110"></i>
-                                        Reset
+                                        重置
                                     </button>
                                 </div>
                             </div>
@@ -116,8 +116,34 @@
         <!-- inline scripts related to this page -->
 
         <script type="text/javascript">
-            jQuery(function($) {
+            $(function() {
+                $("#sub-changepass").click(function (){
+                    var oldpass     = $("#changepass-oldpass").val();
+                    var newpass     = $("#changepass-newpass").val();
+                    var newpass2    = $("#changepass-newpass2").val();
 
+                    if ( oldpass == '' ){
+                        layer.tips('请输入原密码', '#changepass-oldpass');
+                        return false;
+                    }
+
+                    if ( newpass == '' ){
+                        layer.tips('请输入新密码', '#changepass-newpass');
+                        return false;
+                    }
+
+                    if ( newpass2 == '' ){
+                        layer.tips('请输入重复新密码', '#changepass-newpass2');
+                        return false;
+                    }
+
+                    if ( newpass != newpass2 ){
+                        layer.tips('新密码两次输入不同', '#changepass-newpass');
+                        return false;
+                    }
+
+                    $("#form-changepass").submit();
+                });
             });
         </script>
 

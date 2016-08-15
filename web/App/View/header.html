@@ -316,10 +316,10 @@
 
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="<?=StaticDir?>avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="<?=StaticDir?>avatars/user.jpg" alt="<?=$username?>'s Photo" />
 								<span class="user-info">
 									<small>欢迎光临,</small>
-									Jason
+									<?=$username?>
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -343,7 +343,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">
+									<a href="/login/out">
 										<i class="icon-off"></i>
 										退出
 									</a>

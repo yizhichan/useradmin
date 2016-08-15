@@ -32,8 +32,9 @@ class LoginAction extends AppAction
 
 	protected function login()
 	{
-		$uname = $this->input('uname', 'string', '');
-		$upass = $this->input('upass', 'string', '');
+		$uname 		= $this->input('uname', 'string', '');
+		$upass 		= $this->input('upass', 'string', '');
+		$remember 	= $this->input('remember', 'string', '');
 
 		if ( empty($uname) || empty($upass) ) {
 			$this->redirect('请输入用户名或密码', '/login');
@@ -42,12 +43,20 @@ class LoginAction extends AppAction
 		$info = $this->load('adminuser')->getInfo($uname);
 		if ( empty($info) ) $this->redirect('用户名或密码错误', '/login');
 
-		if ( getPasswordMd5($upass) == $info['password'] )
-		{
-			$this->redirect('登录成功，请稍等', '/index');
+		if ( getPasswordMd5($upass) != $info['password'] ){
+			$this->redirect('用户名或密码错误', '/login');
 		}
+		if ( $info['isUse'] != 1 ){
+			$this->redirect('该用户暂无登录权限', '/login');
+		}
+		$this->setLoginUser($info, $remember);
+		$this->redirect('登录成功，请稍等', '/index');
+	}
 
-		$this->redirect('用户名或密码错误', '/login');
+	public function out()
+	{
+		Session::remove(C('COOKIE_USER'));
+		$this->redirect('退出成功', '/login');
 	}
 }
 ?>

@@ -13,9 +13,9 @@
             </li>
 
             <li>
-                <a href="/member/">一只蝉用户</a>
+                <a href="/user/">后台设置</a>
             </li>
-            <li class="active">用户列表</li>
+            <li class="active">操作员管理</li>
         </ul><!-- .breadcrumb -->
 
         <!-- <div class="nav-search" id="nav-search">
@@ -61,14 +61,14 @@
                                             </label>
                                         </th>
                                         <th>ID</th>
-                                        <th>手机号</th>
-                                        <th class="hidden-480">登录次数</th>
+                                        <th>用户名</th>
+                                        <th class="hidden-480">权限</th>
 
-                                        <th>
+                                        <!-- <th>
                                             <i class="icon-time bigger-110 hidden-480"></i>
                                             最近登录日期
-                                        </th>
-                                        <th class="hidden-480">Status</th>
+                                        </th> -->
+                                        <th class="hidden-480">状态</th>
 
                                         <th></th>
                                     </tr>
@@ -86,12 +86,16 @@
                                         <td>
                                             <?=$v['id']?>
                                         </td>
-                                        <td><?=$v['mobile']?></td>
-                                        <td class="hidden-480"><?=$v['loginNum']?></td>
-                                        <td><?=$v['lastDate']==0?'-':date('Y-m-d H:i:s',$v['lastDate'])?></td>
+                                        <td><?=$v['username']?></td>
+                                        <td class="hidden-480"></td>
+                                        <!-- <td><?=$v['lastDate']==0?'-':date('Y-m-d H:i:s',$v['lastDate'])?></td> -->
 
                                         <td class="hidden-480">
-                                            <span class="label label-sm label-warning">Expiring</span>
+                                            <?if ($v['isUse'] != 1){?>
+                                            <span class="label label-sm label-warning">禁用</span>
+                                            <?}else{?>
+                                            <span class="label label-sm label-success">启用</span>
+                                            <?}?>
                                         </td>
 
                                         <td>

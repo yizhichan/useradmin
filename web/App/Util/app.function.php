@@ -91,7 +91,7 @@ function getPageBar($pager, $script = false)
 		'<li class="prev"><a href="' . $pager['pre']   . '">上页</a></li>' .
 		'<li class="next"><a href="' . $pager['next']  . '">下页</a></li><li>' . $pager['point'].
 		'</li><li><a href="' . $pager['last']  . '">尾页</a></li>' ;
-	} else {
+	} elseif ($pager['pageNum'] > 1) {
 		$html .= '<li><a href="' . $pager['first'] . '">首页</a></li>' .
 		'<li class="prev"><a href="' . $pager['pre']   . '">上页</a></li>' .
 		'<li class="next"><a href="' . $pager['next']  . '">下页</a></li>' .
@@ -99,7 +99,8 @@ function getPageBar($pager, $script = false)
 	}
 	$html .= '</ul>';
 
-	$html .= $script ? '<div class="col-md-3 col-md-offset-3 pagination">'.$pager['jump'].'</div>' : '';
+	if ($pager['pageNum'] > 1)
+		$html .= $script ? '<div class="col-md-3 col-md-offset-3 pagination">'.$pager['jump'].'</div>' : '';
 
 	$html .= '</div>';
 

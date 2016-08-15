@@ -37,7 +37,7 @@
 			</ul>
 		</li>
 
-		<li>
+		<li <?if(in_array($_mod_, array('user'))){echo 'class="active open"';}?>>
 			<a href="#" class="dropdown-toggle">
 				<i class="icon-gear"></i>
 				<span class="menu-text"> 后台设置 </span>
@@ -46,17 +46,17 @@
 			</a>
 
 			<ul class="submenu">
-				<li>
-					<a href="tables.html">
+				<li <?if( $_mod_=='user' && ($_act_=='index' || empty($_act_)) ){echo 'class="active"';}?> >
+					<a href="/user">
 						<i class="icon-double-angle-right"></i>
 						操作员管理
 					</a>
 				</li>
 
-				<li>
-					<a href="jqgrid.html">
+				<li <?if($_mod_=='user' && $_act_=='changepass'){echo 'class="active"';}?> >
+					<a href="/user/changePass">
 						<i class="icon-double-angle-right"></i>
-						角色管理
+						修改密码
 					</a>
 				</li>
 			</ul>

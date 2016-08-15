@@ -4,6 +4,7 @@
  */
 $checkhost 	= include(ConfigDir.'/checkhost.config.php');
 $define = array(
+	'COOKIE_USER' => 'UsErAdMiNyZc',
 
 	'searchapi'	=> array(
 		'key'	=> '89eb637c610f94b9d281c458bca42421',
