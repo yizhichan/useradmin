@@ -21,7 +21,29 @@ class MemberAction extends AppAction
 	 */
 	public function index()
 	{
+		$page 	= $this->input('page', 'int', '1');
+
+		$res 	= $this->load('member')->getList($params, $page, $this->rowNum);
+
+		$total 	= empty($res['total']) ? 0 : $res['total'];
+		$list 	= empty($res['rows']) ? array() : $res['rows'];
+
+		$pager 	= $this->pager($total, $this->rowNum, 10, 'active');
+		$pBar 	= empty($list) ? '' : getPageBar($pager, true);
+
+		$result = array();
+//debug($pBar);
+		$this->set("pageBar", $pBar);
+		$this->set('list', $list);//debug($list);
 		$this->display();
 	}
+
+	public function ajaxList()
+	{
+		$list = $this->load('member')->getMemberList();
+		$flag = array('data'=>$list);
+		$this->returnAjax($flag);
+	}
+
 }
 ?>

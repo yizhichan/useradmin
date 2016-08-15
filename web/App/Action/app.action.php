@@ -13,7 +13,7 @@ abstract class AppAction extends Action
 	/**
 	* 每页显示多少行
 	*/
-	public $rowNum      = 15;
+	public $rowNum      = 10;
 
 	public $userInfo    = array();
 

@@ -11,6 +11,12 @@ require_once(LibDir.'/Util/Tool/MakeCode.php');          //载入代码生成工
 //指定数据库名、表前缀
 $configs = array(
     array(
+        'name'      => 'useradmin',
+        'db'        => 'useradmin',
+        'prefix'    => 'ua_',
+        'contain'   => '*',
+        ),
+    array(
         'name'      => 'trade',
         'db'        => 'trade_new',
         'prefix'    => 't_',

@@ -67,18 +67,18 @@
 
 											<div class="space-6"></div>
 
-											<form>
+											<form id="form_login" name="form_login" action="/login/" method="POST">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input type="text" name="uname" id="login-uname" class="form-control" placeholder="Username" />
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" name="upass" id="login-upass" class="form-control" placeholder="Password" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
@@ -87,11 +87,11 @@
 
 													<div class="clearfix">
 														<label class="inline">
-															<input type="checkbox" class="ace" />
+															<input type="checkbox" name="remember" value="yes" class="ace" />
 															<span class="lbl">记住我</span>
 														</label>
 
-														<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+														<button type="button" id="sub-login" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="icon-key"></i>
 															登录
 														</button>
@@ -100,24 +100,6 @@
 													<div class="space-4"></div>
 												</fieldset>
 											</form>
-
-											<!-- <div class="social-or-login center">
-												<span class="bigger-110">Or Login Using</span>
-											</div>
-
-											<div class="social-login center">
-												<a class="btn btn-primary">
-													<i class="icon-facebook"></i>
-												</a>
-
-												<a class="btn btn-info">
-													<i class="icon-twitter"></i>
-												</a>
-
-												<a class="btn btn-danger">
-													<i class="icon-google-plus"></i>
-												</a>
-											</div> -->
 										</div><!-- /widget-main -->
 
 										<div class="toolbar clearfix">
@@ -150,24 +132,7 @@
 											<p>
 												没事儿，忘记什么密码，mdzz！
 											</p>
-
-											<!-- <form>
-												<fieldset>
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
-															<i class="icon-envelope"></i>
-														</span>
-													</label>
-
-													<div class="clearfix">
-														<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
-															<i class="icon-lightbulb"></i>
-															Send Me!
-														</button>
-													</div>
-												</fieldset>
-											</form> -->
+											
 										</div><!-- /widget-main -->
 
 										<div class="toolbar center">
@@ -190,43 +155,28 @@
 											<div class="space-6"></div>
 											<p> 请开始输入信息： </p>
 
-											<form>
+											<form id="form_register" name="form_register" action="/register/" method="POST">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="邮箱" />
-															<i class="icon-envelope"></i>
-														</span>
-													</label>
-
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名" />
+															<input type="text" name="uname" id="reg-uname" class="form-control" placeholder="用户名" />
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" />
+															<input type="password" name="upass" id="reg-upass" class="form-control" placeholder="密码" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="重复密码" />
+															<input type="password" name="upass2" id="reg-upass2" class="form-control" placeholder="重复密码" />
 															<i class="icon-retweet"></i>
 														</span>
 													</label>
-
-													<!-- <label class="block">
-														<input type="checkbox" class="ace" />
-														<span class="lbl">
-															I accept the
-															<a href="#">User Agreement</a>
-														</span>
-													</label> -->
 
 													<div class="space-24"></div>
 
@@ -236,7 +186,7 @@
 															重置
 														</button>
 
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+														<button type="button" id="sub-reg" class="width-65 pull-right btn btn-sm btn-success">
 															注册
 															<i class="icon-arrow-right icon-on-right"></i>
 														</button>
@@ -265,6 +215,7 @@
 		<!--[if !IE]> -->
 
 		<script src="<?=StaticDir?>/js/jquery-2.0.3.min.js"></script>
+		<script src="<?=StaticDir?>js/layer.js"></script>
 
 		<!-- <![endif]-->
 
@@ -293,9 +244,58 @@
 		<!-- inline scripts related to this page -->
 
 		<script type="text/javascript">
+
+			(function (){
+				$('#sub-login').click(function(){
+					var uname = $("#login-uname").val();
+					var upass = $("#login-upass").val();
+
+					if ( uname == '' ) {						
+						layer.tips('请输入用户名', '#login-uname',{tips: [2, '#428bca']});
+						return false;
+					}
+					if ( upass == '' ) {						
+						layer.tips('请输入密码', '#login-upass',{tips: [2, '#428bca']});
+						return false;
+					}
+
+					$("#form_login").submit();
+				});
+
+				$("#sub-reg").click(function (){
+					var uname 	= $("#reg-uname").val();
+					var upass 	= $("#reg-upass").val();
+					var upass2 	= $("#reg-upass2").val();
+
+					if ( uname == '' ) {						
+						layer.tips('请输入用户名', '#login-uname');
+						return false;
+					}
+					if ( upass == '' ) {						
+						layer.tips('请输入密码', '#login-upass');
+						return false;
+					}
+					if ( upass2 == '' ) {						
+						layer.tips('请输入重复密码', '#login-upass2');
+						return false;
+					}
+					if ( upass2 != upass ) {
+						layer.msg('两次密码不相同');
+						return false;
+					}
+
+					$("#form_register").submit();
+				});
+				var reg = '<?=$reg?>';
+				if ( reg == '1' ) {
+					show_box('signup-box'); 
+					return false;
+				}
+			})(jQuery);
+
 			function show_box(id) {
-			 jQuery('.widget-box.visible').removeClass('visible');
-			 jQuery('#'+id).addClass('visible');
+				jQuery('.widget-box.visible').removeClass('visible');
+				jQuery('#'+id).addClass('visible');
 			}
 		</script>
 </body>

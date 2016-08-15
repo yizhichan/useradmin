@@ -84,22 +84,24 @@ function getPageBar($pager, $script = false)
 		return '';
 	}
 
-	$html = '<div class="col-xs-3"><div class="dataTables_info">共'.$pager['recordNum'].'条，'. '当前第'.$pager['current'].'/' . $pager['pageNum'] . '页' . '</div></div>';
-	$html .= '<div class="col-xs-9"><div class="dataTables_paginate paging_bootstrap pagination"><ul>';
+	$html = '<div class=""><div class="col-md-3 pagination dataTables_info text-right">共'.$pager['recordNum'].'条，'. '当前第'.$pager['current'].'/' . $pager['pageNum'] . '页' . '</div>';
+	$html .= '<div class="col-md-9 "><ul class="col-md-9 pagination">';
 	if ( $pager['pageNum'] > 10 ) {
-		$html .= '<li><a href="' . $pager['first'] . '">首页</a></li>' .
-		'<li><a href="' . $pager['pre']   . '">上页</a></li>' .
-		'<li><a href="' . $pager['next']  . '">下页</a></li>' . $pager['point'].
-		'<li><a href="' . $pager['last']  . '">尾页</a></li>' ;
+		$html .= '<li><a href="' . $pager['first'] . '">首页</a></li></li>' .
+		'<li class="prev"><a href="' . $pager['pre']   . '">上页</a></li>' .
+		'<li class="next"><a href="' . $pager['next']  . '">下页</a></li><li>' . $pager['point'].
+		'</li><li><a href="' . $pager['last']  . '">尾页</a></li>' ;
 	} else {
 		$html .= '<li><a href="' . $pager['first'] . '">首页</a></li>' .
-		'<li><a href="' . $pager['pre']   . '">上页</a></li>' .
-		'<li><a href="' . $pager['next']  . '">下页</a></li>' .
+		'<li class="prev"><a href="' . $pager['pre']   . '">上页</a></li>' .
+		'<li class="next"><a href="' . $pager['next']  . '">下页</a></li>' .
 		'<li><a href="' . $pager['last']  . '">尾页</a></li>' ;
 	}
-	$html .= '</ul></div></div>';
+	$html .= '</ul>';
 
-	$html .= $script ? $pager['jump'] : '';
+	$html .= $script ? '<div class="col-md-3 col-md-offset-3 pagination">'.$pager['jump'].'</div>' : '';
+
+	$html .= '</div>';
 
 	return $html;
 }
