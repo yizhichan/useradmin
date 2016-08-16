@@ -12,7 +12,7 @@ class MemberModule extends AppModule
 {
 	
 	public $models = array(
-        'user'   		=> 'user',
+        'member'   		=> 'user',
 	);
 	
 	/**
@@ -30,20 +30,48 @@ class MemberModule extends AppModule
 		$r['order'] = array('id'=>'desc');
 		$r['limit'] = 1000;
 
-		return $this->import('user')->find($r);
+		return $this->import('member')->find($r);
 
 	}
 
-	public function getList($param, $page, $num)
+	public function getList($params, $page, $num)
 	{
 		$r = array();
+
+		if ( $params['uid'] > 0 ){
+			$r['eq']['id'] = $params['uid']; 
+		}
+		if ( !empty($params['mobile']) ){
+			$r['eq']['mobile'] = $params['mobile']; 
+		}
+
 		$r['order'] = array('id'=>'desc');
 		$r['page']	= $page;
 		$r['limit']	= $num;
 
-		return $this->import('user')->findAll($r);
+		return $this->import('member')->findAll($r);
 	}
 
+	public function getListOther($data)
+	{
+		if ( empty($data) || !is_array($data) ) return array();
+		foreach ($data as $k => $v) {
+			$data[$k]['isUserBuy'] 		= $this->load('buy')->isUserBuy($v['id']) > 0 ? true : false;
+			$data[$k]['isMobileBuy'] 	= $this->load('buy')->isMobileBuy($v['mobile']) > 0 ? true : false;
+			$data[$k]['isUserSale'] 	= $this->load('sale')->isUserSale($v['id']) > 0 ? true : false;
+			$data[$k]['isMobileSale'] 	= $this->load('sale')->isMobileSale($v['mobile']) > 0 ? true : false;
+		}
+		return $data;
+	}
+
+	public function getInfoById($uid)
+	{
+		$r 			= array();
+		$r['eq']	= array('id'=>$uid);
+		$r['limit']	= 1;
+
+		return $this->import('member')->find($r);
+	}
 	
 }
 ?>

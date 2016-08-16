@@ -18,33 +18,49 @@
             <li class="active">用户列表</li>
         </ul><!-- .breadcrumb -->
 
-        <!-- <div class="nav-search" id="nav-search">
-            <form class="form-search">
-                <span class="input-icon">
-                    <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-                    <i class="icon-search nav-search-icon"></i>
-                </span>
-            </form>
-        </div> --><!-- #nav-search -->
     </div>
 
     <div class="page-content">
-        <!-- <div class="page-header">
+        <div class="page-header">
             <h1>
                 用户列表
                 <small>
                     <i class="icon-double-angle-right"></i>
-                    管理用户信息
+                    查看、管理用户信息
                 </small>
             </h1>
-        </div> --><!-- /.page-header -->
+        </div> <!-- /.page-header-->
+        
+        <div class="form-group">
+            <div class="row">            
+                <form id="form-changepass" class="form-horizontal" role="form" action="/member/" method="GET">
+                    
+                    <div class="col-sm-3">
+                        <label class="col-sm-3 control-label" for="form-field-2"> 用户ID: </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="uid" <?if($search['uid']){echo 'value="'.$search['uid'].'"';}?> class="col-xs-10 col-sm-10" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="col-sm-3 control-label" for="form-field-2"> 手机号: </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="mobile" <?if($search['mobile']){echo 'value="'.$search['mobile'].'"';}?> class="col-xs-10 col-sm-15" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                         <button class="btn btn-info" type="submit">
+                            搜索
+                        </button>
+                    </div>
+                </form>   
+            </div>         
+        </div>
+
+        <div class="hr dotted"></div>
 
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
-
-                <div class="row">
-                    <div class="col-xs-12">
 
                         <div class="table-header">
                             最新的用户注册信息
@@ -91,22 +107,31 @@
                                         <td><?=$v['lastDate']==0?'-':date('Y-m-d H:i:s',$v['lastDate'])?></td>
 
                                         <td class="hidden-480">
-                                            <span class="label label-sm label-warning">Expiring</span>
+                                            <?if ($v['isUserBuy']){?>
+                                                <span class="label label-sm label-success">求购中(U)</span>
+                                            <?}elseif ($v['isMobileBuy']){?>
+                                                <span class="label label-sm label-success">求购中(M)</span>
+                                            <?}?>
+                                            <?if ($v['isUserSale']){?>
+                                                <span class="label label-sm label-warning">出售中(U)</span>
+                                            <?}elseif ($v['isMobileSale']){?>
+                                                <span class="label label-sm label-warning">出售中(M)</span>
+                                            <?}?>
                                         </td>
 
                                         <td>
                                             <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                                <a class="blue" href="#">
+                                                <a class="blue" href="/member/view/?uid=<?=$v['id']?>">
                                                     <i class="icon-zoom-in bigger-130"></i>
                                                 </a>
 
-                                                <a class="green" href="#">
+                                               <!--  <a class="green" href="#">
                                                     <i class="icon-pencil bigger-130"></i>
                                                 </a>
 
                                                 <a class="red" href="#">
                                                     <i class="icon-trash bigger-130"></i>
-                                                </a>
+                                                </a> -->
                                             </div>
                                         </td>
                                     </tr>
@@ -116,9 +141,6 @@
                         </div>
                             
                         <div class="row"><?=$pageBar?></div>
-
-                    </div>
-                </div>
 
             </div><!-- /.col -->
         </div><!-- /.row -->

@@ -8,7 +8,7 @@
  * @author	void
  * @since	2016-08-11
  */
-class AdminUserModule extends AppModule
+class UserModule extends AppModule
 {
 	
 	public $models = array(
@@ -74,6 +74,28 @@ class AdminUserModule extends AppModule
 	{
 		$data = array('password'=>getPasswordMd5($newpass));
 		$r = array('eq'=>array('id'=>$userId));
+		return $this->updateUser($data, $r);
+	}
+
+	public function unUse($userId)
+	{
+		$info = $this->getInfoById($userId);
+		if ( empty($info) ) return false;
+		if ( $info['isUse'] != 1 ) return true;
+
+		$data 		= array('isUse'=>2);
+		$r['eq'] 	= array('id'=>$userId);
+		return $this->updateUser($data, $r);
+	}
+
+	public function setUse($userId)
+	{
+		$info = $this->getInfoById($userId);
+		if ( empty($info) ) return false;
+		if ( $info['isUse'] == 1 ) return true;
+
+		$data 		= array('isUse'=>1);
+		$r['eq'] 	= array('id'=>$userId);
 		return $this->updateUser($data, $r);
 	}
 	

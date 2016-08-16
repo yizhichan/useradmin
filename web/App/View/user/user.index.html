@@ -18,14 +18,6 @@
             <li class="active">操作员管理</li>
         </ul><!-- .breadcrumb -->
 
-        <!-- <div class="nav-search" id="nav-search">
-            <form class="form-search">
-                <span class="input-icon">
-                    <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-                    <i class="icon-search nav-search-icon"></i>
-                </span>
-            </form>
-        </div> --><!-- #nav-search -->
     </div>
 
     <div class="page-content">
@@ -100,14 +92,19 @@
 
                                         <td>
                                             <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                                <a class="blue" href="#">
+                                                <!-- <a class="blue" href="#">
                                                     <i class="icon-zoom-in bigger-130"></i>
-                                                </a>
+                                                </a> -->
 
-                                                <a class="green" href="#">
+                                                <!-- <a class="green" href="#">
                                                     <i class="icon-pencil bigger-130"></i>
-                                                </a>
-
+                                                </a> -->
+                                                <?if ($v['isUse'] != 1){?>
+                                                    <a onclick="setUse('<?=$v['id']?>');return false;" href="javascript:;">启用</a>
+                                                <?}else{?>
+                                                    <a onclick="unUse('<?=$v['id']?>');return false;" href="javascript:;">禁用</a>
+                                                <?}?>
+                                                    
                                                 <a class="red" href="#">
                                                     <i class="icon-trash bigger-130"></i>
                                                 </a>
@@ -158,6 +155,62 @@
         });
 
     })
+    function unUse(uid)
+    {
+        layer.confirm('是否确认禁用该用户？', {
+        btn: ['是的','再想想'] //按钮
+        }, function(){
+            $.ajax({
+                type : 'post',
+                url  : '/user/unUse/',
+                data : {uid:uid},
+                dataType : 'json',
+                success : function (data){
+                    if (data.code==1){
+                        layer.msg('操作成功！', {
+                            time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                        }, function(){
+                            window.location.reload();
+                        });
+                    }else{
+                        var msg = data.msg ? data.msg : '操作失败，请重试。';
+                        layer.msg(msg);
+                    }
+                },
+                error : function (data){
+                    layer.msg('操作失败，请稍后重试。');
+                }
+            });
+        });
+    }
+    function setUse(uid)
+    {
+        layer.confirm('请注意：启用后将可以登录本后台！', {
+            btn: ['启用','再想想'] //按钮
+        }, function(){
+            $.ajax({
+                type : 'post',
+                url  : '/user/setUse/',
+                data : {uid:uid},
+                dataType : 'json',
+                success : function (data){
+                    if (data.code==1){
+                        layer.msg('操作成功！', {
+                            time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                        }, function(){
+                            window.location.reload();
+                        });
+                    }else{
+                        var msg = data.msg ? data.msg : '操作失败，请重试。';
+                        layer.msg(msg);
+                    }
+                },
+                error : function (data){
+                    layer.msg('操作失败，请稍后重试。');
+                }
+            });
+        });
+    }
 </script>
 
 <? require(ViewDir.'/footer.html'); ?>

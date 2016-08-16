@@ -29,10 +29,10 @@ class RegisterAction extends AppAction
 			$this->redirect('请输入用户名或密码', '/login/?reg=1');
 		}
 
-		$info = $this->load('adminuser')->getInfo($uname);
+		$info = $this->load('user')->getInfo($uname);
 		if ( !empty($info) ) $this->redirect('用户名已存在', '/login/?reg=1');
 
-		$uid = $this->load('adminuser')->addUser($uname, $upass);
+		$uid = $this->load('user')->addUser($uname, $upass);
 		if ( $uid ){
 			$this->redirect('注册成功，请登录', '/login');
 		}

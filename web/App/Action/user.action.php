@@ -22,8 +22,8 @@ class UserAction extends AppAction
 	public function index()
 	{
 		$page 	= $this->input('page', 'int', '1');
-
-		$res 	= $this->load('adminuser')->getList($params, $page, $this->rowNum);
+		$params = array();
+		$res 	= $this->load('user')->getList($params, $page, $this->rowNum);
 
 		$total 	= empty($res['total']) ? 0 : $res['total'];
 		$list 	= empty($res['rows']) ? array() : $res['rows'];
@@ -57,15 +57,39 @@ class UserAction extends AppAction
 		if ( empty($newpass2) )  $this->redirect('请输入重复新密码', '');
 		if ( $newpass2 != $newpass )  $this->redirect('新密码两次输入不同', '');
 
-		$info = $this->load('adminuser')->getInfoById($this->userId);
+		$info = $this->load('user')->getInfoById($this->userId);
 		if ( getPasswordMd5($oldpass) != $info['password'] ){
 			$this->redirect('原密码不正确', '');
 		}
 
-		$res = $this->load('adminuser')->changePass($this->userId, $newpass);
+		$res = $this->load('user')->changePass($this->userId, $newpass);
 		if ( $res ) $this->redirect('修改成功', '');
 
 		$this->redirect('修改失败', '');
+	}
+
+	public function unUse()
+	{
+		if ( !$this->isAjax() ) return false;
+		$uid 	= $this->input('uid', 'int', '');
+
+		if ( $uid <= 0 ) $this->returnAjax(array('code'=>2,'msg'=>'参数错误'));
+
+		$flag = $this->load('user')->unUse($uid);
+		if ( $flag ) $this->returnAjax(array('code'=>1,'msg'=>'操作完成'));
+		$this->returnAjax(array('code'=>2,'msg'=>'操作失败'));
+	}
+
+	public function setUse()
+	{
+		if ( !$this->isAjax() ) return false;
+		$uid 	= $this->input('uid', 'int', '');
+
+		if ( $uid <= 0 ) $this->returnAjax(array('code'=>2,'msg'=>'参数错误'));
+
+		$flag = $this->load('user')->setUse($uid);
+		if ( $flag ) $this->returnAjax(array('code'=>1,'msg'=>'操作完成'));
+		$this->returnAjax(array('code'=>2,'msg'=>'操作失败'));
 	}
 
 }

@@ -49,6 +49,15 @@ abstract class AppAction extends Action
 			}
 		}
 		$isLogin = $this->getLoginUser();
+
+		//有用户账号就必须判断账号是否有效
+		if ( !empty($this->username) ){
+			$userinfo = $this->load('user')->getInfo($this->username);
+			if(empty($userinfo) || $userinfo['isUse'] != 1) {
+				$this->removeUser();
+				$this->redirect('未登录或权限不够', '/login');
+			}			
+		}
 		if ( !$allow && !$isLogin) {
 			$this->redirect('请登录后操作', '/login');
 			exit;
@@ -158,6 +167,7 @@ abstract class AppAction extends Action
 		$this->userMobile   = '';
 		$this->isLogin      = false;
 		$this->setUserView();
+		Session::remove(C('COOKIE_USER'));
 	}
 	
 }
