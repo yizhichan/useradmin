@@ -170,5 +170,29 @@ abstract class AppAction extends Action
 		Session::remove(C('COOKIE_USER'));
 	}
 	
+	//获取来源页面地址并保存
+	protected function getReferrUrl($action)
+	{
+		//配置项
+		$referrArr 	= array(
+			'member_view' => '/member/index',
+			); 
+		if ( empty($referrArr[$action]) ) return '/index/';
+
+		$_referr 	= Session::get($action);
+
+		if ( empty($_referr) ){
+			if ( strpos($_SERVER['HTTP_REFERER'], $referrArr[$action]) !== false ){
+				Session::set($action, $_SERVER['HTTP_REFERER']);
+			}else{
+				Session::set($action, $referrArr[$action]);
+			}
+		}else{
+			if ( strpos($_SERVER['HTTP_REFERER'], $referrArr[$action]) !== false ){
+				Session::set($action, $_SERVER['HTTP_REFERER']);
+			}
+		}
+		return Session::get($action);
+	}
 }
 ?>

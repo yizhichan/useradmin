@@ -54,7 +54,8 @@ class MemberAction extends AppAction
 			$info['buyList'] 	= $this->load('buy')->getListByUidMoblie($uid, $info['mobile']);
 			$info['saleList'] 	= $this->load('sale')->getListByUidMoblie($uid, $info['mobile']);
 		}
-
+		$referr = $this->getReferrUrl('member_view');
+		$this->set('referr', $referr);
 		$this->set('info', $info);
 		$this->set('SOURCE', C('SOURCE'));
 		$this->display();
