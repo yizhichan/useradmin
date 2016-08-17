@@ -13,6 +13,9 @@ class MemberModule extends AppModule
 	
 	public $models = array(
         'member'   		=> 'user',
+        'collect'		=> 'userCollect',
+        'dou'			=> 'total',
+        'douLog'			=> 'totalLog',
 	);
 	
 	/**
@@ -24,13 +27,14 @@ class MemberModule extends AppModule
 	* @param 	int 		$uid		用户id
 	* @return	int			$count
 	*/
-	public function getMemberList()
+	public function getMemberList($page, $num)
 	{
 		$r = array();
 		$r['order'] = array('id'=>'desc');
-		$r['limit'] = 1000;
+		$r['page'] 	= $page;
+		$r['limit'] = $num;
 
-		return $this->import('member')->find($r);
+		return $this->import('member')->findAll($r);
 
 	}
 
@@ -72,6 +76,68 @@ class MemberModule extends AppModule
 
 		return $this->import('member')->find($r);
 	}
+
+	//统计今天注册的会员
+	public function countTodayReg()
+	{
+		$r 			= array();
+		$r['raw']	= " `regDate` > ".strtotime(date("Y-m-d"));
+
+		return $this->import('member')->count($r);
+	}
+
+	public function getMemberCollect($uid)
+	{
+		if ( $uid <=0 ) return array();
+
+		$r = array();
+		$r['eq'] 	= array('userId'=>$uid,'source'=>'1');
+		$r['order'] = array('id'=>'desc');
+		$r['limit'] = 5000;
+
+		return $this->import('collect')->find($r);
+	}
+
+	public function getMemberDouLog($uid)
+	{
+		if ( $uid <=0 ) return array();
+
+		$r = array();
+		$r['eq'] 	= array('uid'=>$uid);
+		$r['order'] = array('id'=>'desc');
+		$r['limit'] = 5000;
+
+		return $this->import('douLog')->find($r);
+	}
 	
+	public function getMemberDoudou($uid)
+	{
+		if ( $uid <=0 ) return array();
+
+		$r = array();
+		$r['eq'] 	= array('uid'=>$uid);
+		$r['limit'] = 1;
+
+		return $this->import('dou')->find($r);
+	}
+
+	public function updateDoudou($uid, $num)
+	{
+		if ( $uid <=0 ) return false;
+
+		$r['eq'] 	= array('uid'=>$uid);
+		$data		= array('amount'=>intval($num));
+		return $this->import('dou')->modify($data, $r);
+	}
+
+
+	public function updateNickname($uid, $name)
+	{
+		if ( $uid <=0 ) return false;
+
+		$r['eq'] 	= array('id'=>$uid);
+		$data		= array('nickname'=>$name);
+		return $this->import('member')->modify($data, $r);
+	}
 }
 ?>

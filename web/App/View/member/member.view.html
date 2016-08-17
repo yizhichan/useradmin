@@ -40,85 +40,130 @@
                                 <div class="tabbable">
                                     <ul class="nav nav-tabs padding-18">
                                         <li class="active">
-                                            <a data-toggle="tab" href="#home">
+                                            <a data-toggle="tab" href="#basic">
                                                 <i class="green icon-user bigger-120"></i>
-                                                资料
+                                                基本资料
                                             </a>
                                         </li>
-                                        <?if($info['buyCount'] > 0){?>
                                         <li>
-                                            <a data-toggle="tab" href="#feed">
+                                            <a href="/member/buyer/?uid=<?=$info['id']?>">
                                                 <i class="orange icon-rss bigger-120"></i>
-                                                求购
+                                                我是买家
                                             </a>
                                         </li>
-                                        <?}?>
-                                        <?if($info['saleCount'] > 0){?>
                                         <li>
-                                            <a data-toggle="tab" href="#friends">
+                                            <a href="/member/seller/?uid=<?=$info['id']?>">
                                                 <i class="blue icon-group bigger-120"></i>
-                                                出售
+                                                我是卖家
                                             </a>
                                         </li>
-                                        <?}?>    
                                         <li>
-                                            <a data-toggle="tab" href="#pictures">
+                                            <a data-toggle="tab" href="/member/msg/?uid=<?=$info['id']?>">
                                                 <i class="pink icon-picture bigger-120"></i>
-                                                访问
+                                                意见反馈
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="/member/visit/?uid=<?=$info['id']?>">
+                                                <i class="pink icon-picture bigger-120"></i>
+                                                访问日志
                                             </a>
                                         </li>
                                     </ul>
+                                    <div>
+                                        <h2 class="blue">
+                                            <span class="middle"><?=$info['mobile']?$info['mobile']:$info['email']?></span>
 
+                                            <span class="label label-purple arrowed-in-right">
+                                                <i class="icon-circle smaller-80 align-middle"></i>
+                                                用户名
+                                            </span>
+                                        </h2>
+                                    </div>
                                     <div class="tab-content no-border padding-24">
-                                        <div id="home" class="tab-pane in active">
 
+                                        <div id="basic" class="tab-pane in active">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-3 center">
                                                     <span class="profile-picture">
-                                                        <img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="<?=StaticDir?>avatars/profile-pic.jpg" />
+                                                        <img class="editable img-responsive inline" alt="Alex's Avatar" id="avatar2" src="<?=StaticDir?>avatars/profile-pic.jpg" />
                                                     </span>
 
                                                     <div class="space space-4"></div>
 
                                                     <a href="#" class="btn btn-sm btn-block btn-success">
-                                                        <i class="icon-plus-sign bigger-120"></i>
-                                                        <span class="bigger-110">Add as a friend</span>
+                                                        <i class="icon-pencil bigger-120"></i>
+                                                        <span class="bigger-110">修改密码</span>
                                                     </a>
 
                                                     <a href="#" class="btn btn-sm btn-block btn-primary">
                                                         <i class="icon-envelope-alt bigger-110"></i>
-                                                        <span class="bigger-110">Send a message</span>
+                                                        <span class="bigger-110">联系他</span>
+                                                    </a>
+
+                                                    <a href="#" class="btn btn-sm btn-block btn-danger">
+                                                        <i class="icon-ban-circle bigger-110"></i>
+                                                        <span class="bigger-110">冻结账号</span>
                                                     </a>
                                                 </div><!-- /span -->
 
+
                                                 <div class="col-xs-12 col-sm-9">
-                                                    <h4 class="blue">
-                                                        <span class="middle"><?=$info['nickname']?$info['nickname']:$info['name']?></span>
 
-                                                        <!-- <span class="label label-purple arrowed-in-right">
-                                                            <i class="icon-circle smaller-80 align-middle"></i>
-                                                            online
-                                                        </span> -->
-                                                    </h4>
+                                                    <div class="center">
+                                                        <span class="btn btn-app btn-sm btn-success no-hover">
+                                                            <span class="line-height-1 bigger-170"> <?=$info['buyCount']?> </span>
 
-                                                    <div class="profile-user-info">
+                                                            <br />
+                                                            <span class="line-height-1 smaller-90"> 求购(U/M) </span>
+                                                        </span>
+
+                                                        <span class="btn btn-app btn-sm btn-yellow no-hover">
+                                                            <span class="line-height-1 bigger-170"> <?=$info['saleCount']?> </span>
+
+                                                            <br />
+                                                            <span class="line-height-1 smaller-90"> 出售(U/M) </span>
+                                                        </span>
+
+                                                        <span class="btn btn-app btn-sm btn-pink no-hover">
+                                                            <span class="line-height-1 bigger-170"> 0 </span>
+
+                                                            <br />
+                                                            <span class="line-height-1 smaller-90"> 访问(U) </span>
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="space-12"></div>
+
+                                                    <div class="profile-user-info profile-user-info-striped">
                                                         <div class="profile-info-row">
-                                                            <div class="profile-info-name"> 用户名 </div>
+                                                            <div class="profile-info-name"> 昵称 </div>
 
                                                             <div class="profile-info-value">
-                                                                <span><?=$info['mobile']?$info['mobile']:'-'?></span>
+                                                                <span id="nickname"><?=$info['nickname']?$info['nickname']:'-'?></span>&nbsp;
+                                                                <a class="red" data-name="nickname" data-val="<?=$info['nickname']?>" href="javascript:;"><i class="icon-pencil bigger-130"></i></a>
                                                             </div>
                                                         </div>
 
-                                                        <!-- <div class="profile-info-row">
-                                                            <div class="profile-info-name"> Location </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"> 蝉豆 </div>
 
                                                             <div class="profile-info-value">
-                                                                <i class="icon-map-marker light-orange bigger-110"></i>
-                                                                <span>Netherlands</span>
-                                                                <span>Amsterdam</span>
+                                                                <span id="doudou"><?=$info['doudou']?></span>&nbsp;
+                                                                <a class="red" data-name="doudou" data-val="<?=$info['doudou']?>" href="javascript:;"><i class="icon-pencil bigger-130"></i></a>
                                                             </div>
-                                                        </div> -->
+                                                        </div>
+
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"> 新商品审核 </div>
+
+                                                            <div class="profile-info-value">
+                                                                <span><label class="inline">
+                                                                    <input id="id-button-borders" type="checkbox" class="ace ace-switch ace-switch-5">
+                                                                    <span class="lbl"></span>
+                                                                </label></span>
+                                                            </div>
+                                                        </div>
 
                                                         <div class="profile-info-row">
                                                             <div class="profile-info-name"> 创建日期 </div>
@@ -153,488 +198,15 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="hr hr-8 dotted"></div>
+                                                   <!--  <div class="hr hr-8 dotted"></div> -->
                                                     
                                                 </div><!-- /span -->
                                             </div><!-- /row-fluid -->
 
+                                                    <div class="hr hr-8 dotted"></div>
                                             <div class="space-20"></div>
-
-                                            <div class="center">
-                                                <span class="btn btn-app btn-sm btn-success no-hover">
-                                                    <span class="line-height-1 bigger-170"> <?=$info['buyCount']?> </span>
-
-                                                    <br />
-                                                    <span class="line-height-1 smaller-90"> 求购(U/M) </span>
-                                                </span>
-
-                                                <span class="btn btn-app btn-sm btn-yellow no-hover">
-                                                    <span class="line-height-1 bigger-170"> <?=$info['saleCount']?> </span>
-
-                                                    <br />
-                                                    <span class="line-height-1 smaller-90"> 出售(U/M) </span>
-                                                </span>
-
-                                                <span class="btn btn-app btn-sm btn-pink no-hover">
-                                                    <span class="line-height-1 bigger-170"> 0 </span>
-
-                                                    <br />
-                                                    <span class="line-height-1 smaller-90"> 访问(U) </span>
-                                                </span>
-
-                                                <!-- <span class="btn btn-app btn-sm btn-light no-hover">
-                                                    <span class="line-height-1 bigger-170 blue"> 1,411 </span>
-
-                                                    <br />
-                                                    <span class="line-height-1 smaller-90"> Views </span>
-                                                </span>
-
-                                                <span class="btn btn-app btn-sm btn-grey no-hover">
-                                                    <span class="line-height-1 bigger-170"> 23 </span>
-
-                                                    <br />
-                                                    <span class="line-height-1 smaller-90"> Reviews </span>
-                                                </span>
-
-                                                <span class="btn btn-app btn-sm btn-primary no-hover">
-                                                    <span class="line-height-1 bigger-170"> 55 </span>
-
-                                                    <br />
-                                                    <span class="line-height-1 smaller-90"> Contacts </span>
-                                                </span> -->
-                                            </div>
-
-                                            <div class="space-20"></div>
-
-                                            <div class="row">
-                                                <!-- <div class="col-xs-12 col-sm-6">
-                                                    <div class="widget-box transparent">
-                                                        <div class="widget-header widget-header-small">
-                                                            <h4 class="smaller">
-                                                                <i class="icon-check bigger-110"></i>
-                                                                Little About Me
-                                                            </h4>
-                                                        </div>
-
-                                                        <div class="widget-body">
-                                                            <div class="widget-main">
-                                                                <p>
-                                                                    My job is mostly lorem ipsuming and dolor sit ameting as long as consectetur adipiscing elit.
-                                                                </p>
-                                                                <p>
-                                                                    Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
-                                                                </p>
-                                                                <p>
-                                                                    The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus eget urna mollis ornare.
-                                                                </p>
-                                                                <p>
-                                                                    Thanks for visiting my profile.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-
-                                                <!-- <div class="col-xs-12 col-sm-6">
-                                                    <div class="widget-box transparent">
-                                                        <div class="widget-header widget-header-small header-color-blue2">
-                                                            <h4 class="smaller">
-                                                                <i class="icon-lightbulb bigger-120"></i>
-                                                                My Skills
-                                                            </h4>
-                                                        </div>
-
-                                                        <div class="widget-body">
-                                                            <div class="widget-main padding-16">
-                                                                <div class="clearfix">
-                                                                    <div class="grid3 center">
-                                                                        <div class="easy-pie-chart percentage" data-percent="45" data-color="#CA5952">
-                                                                            <span class="percent">45</span>%
-                                                                        </div>
-
-                                                                        <div class="space-2"></div>
-                                                                        Graphic Design
-                                                                    </div>
-
-                                                                    <div class="grid3 center">
-                                                                        <div class="center easy-pie-chart percentage" data-percent="90" data-color="#59A84B">
-                                                                            <span class="percent">90</span>%
-                                                                        </div>
-
-                                                                        <div class="space-2"></div>
-                                                                        HTML5 & CSS3
-                                                                    </div>
-
-                                                                    <div class="grid3 center">
-                                                                        <div class="center easy-pie-chart percentage" data-percent="80" data-color="#9585BF">
-                                                                            <span class="percent">80</span>%
-                                                                        </div>
-
-                                                                        <div class="space-2"></div>
-                                                                        Javascript/jQuery
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="hr hr-16"></div>
-
-                                                                <div class="profile-skills">
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar" style="width:80%">
-                                                                            <span class="pull-left">HTML5 & CSS3</span>
-                                                                            <span class="pull-right">80%</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar progress-bar-success" style="width:72%">
-                                                                            <span class="pull-left">Javascript & jQuery</span>
-
-                                                                            <span class="pull-right">72%</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar progress-bar-purple" style="width:70%">
-                                                                            <span class="pull-left">PHP & MySQL</span>
-
-                                                                            <span class="pull-right">70%</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar progress-bar-warning" style="width:50%">
-                                                                            <span class="pull-left">Wordpress</span>
-
-                                                                            <span class="pull-right">50%</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar progress-bar-danger" style="width:35%">
-                                                                            <span class="pull-left">Photoshop</span>
-
-                                                                            <span class="pull-right">35%</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                            </div>
                                         </div><!-- #home -->
 
-                                        <div id="feed" class="tab-pane">
-                                            <div class="profile-feed row-fluid">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="table-header">
-                                                        最新的求购信息
-                                                    </div>
-
-                                                    <div class="table-responsive">
-                                                        <table id="table-buy" class="table table-striped table-bordered table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>用户ID</th>
-                                                                    <th>手机号</th>
-                                                                    <th class="hidden-480">姓名</th>
-                                                                    <th>标题</th>
-                                                                    <th>备注</th>
-                                                                    <th>
-                                                                        <i class="icon-time bigger-110 hidden-480"></i>
-                                                                        创建时间
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-
-                                                            <tbody>
-                                                            <?foreach ($info['buyList'] as $k => $v) {?>
-                                                                <tr>
-                                                                    <td><?=$v['userId']?></td>
-                                                                    <td><?=$v['mobile']?></td>
-                                                                    <td class="hidden-480"><?=$v['name']?></td>
-                                                                    <td><?=$v['subject']?></td>
-                                                                    <td><?=$v['remarks']?></td>
-                                                                    <td class="hidden-480"><?=date("Y-m-d H:i:s",$v['recorddate'])?></td>
-                                                                </tr>  
-                                                            <?}?>                                                  
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </div><!-- /row -->
-
-                                            <div class="space-12"></div>
-                                            
-                                        </div><!-- /#feed -->
-
-                                        <div id="friends" class="tab-pane">
-                                            <div class="profile-users clearfix">
-                                                <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="table-header">
-                                                        最新的求购信息
-                                                    </div>
-
-                                                    <div class="table-responsive">
-                                                        <table id="table-sale" class="table table-striped table-bordered table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>来源</th>
-                                                                    <th>uid</th>
-                                                                    <th>手机号</th>
-                                                                    <th class="hidden-480">姓名</th>
-                                                                    <th>商标号</th>
-                                                                    <th>底价</th>
-                                                                    <th>
-                                                                        <i class="icon-time bigger-110 hidden-480"></i>
-                                                                        创建时间
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-
-                                                            <tbody>
-                                                            <?foreach ($info['saleList'] as $k => $v) {?>
-                                                                <tr>
-                                                                    <td><?=$SOURCE[$v['source']]?></td>
-                                                                    <td><?=$v['uid']?></td>
-                                                                    <td><?=$v['phone']?></td>
-                                                                    <td class="hidden-480"><?=$v['name']?></td>
-                                                                    <td><?=$v['number']?></td>
-                                                                    <td><?=$v['price']?></td>
-                                                                    <td class="hidden-480"><?=date("Y-m-d H:i:s",$v['date'])?></td>
-                                                                </tr>  
-                                                            <?}?>                                                  
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </div>
-
-                                        </div><!-- /#friends -->
-
-                                        <div id="pictures" class="tab-pane">
-                                            <ul class="ace-thumbnails">
-                                                <li>
-                                                    <a href="#" data-rel="colorbox">
-                                                        <img alt="150x150" src="<?=StaticDir?>images/gallery/thumb-1.jpg" />
-                                                        <div class="text">
-                                                            <div class="inner">Sample Caption on Hover</div>
-                                                        </div>
-                                                    </a>
-
-                                                    <div class="tools tools-bottom">
-                                                        <a href="#">
-                                                            <i class="icon-link"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-paper-clip"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-remove red"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" data-rel="colorbox">
-                                                        <img alt="150x150" src="<?=StaticDir?>images/gallery/thumb-2.jpg" />
-                                                        <div class="text">
-                                                            <div class="inner">Sample Caption on Hover</div>
-                                                        </div>
-                                                    </a>
-
-                                                    <div class="tools tools-bottom">
-                                                        <a href="#">
-                                                            <i class="icon-link"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-paper-clip"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-remove red"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" data-rel="colorbox">
-                                                        <img alt="150x150" src="<?=StaticDir?>images/gallery/thumb-3.jpg" />
-                                                        <div class="text">
-                                                            <div class="inner">Sample Caption on Hover</div>
-                                                        </div>
-                                                    </a>
-
-                                                    <div class="tools tools-bottom">
-                                                        <a href="#">
-                                                            <i class="icon-link"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-paper-clip"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-remove red"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" data-rel="colorbox">
-                                                        <img alt="150x150" src="<?=StaticDir?>images/gallery/thumb-4.jpg" />
-                                                        <div class="text">
-                                                            <div class="inner">Sample Caption on Hover</div>
-                                                        </div>
-                                                    </a>
-
-                                                    <div class="tools tools-bottom">
-                                                        <a href="#">
-                                                            <i class="icon-link"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-paper-clip"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-remove red"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" data-rel="colorbox">
-                                                        <img alt="150x150" src="<?=StaticDir?>images/gallery/thumb-5.jpg" />
-                                                        <div class="text">
-                                                            <div class="inner">Sample Caption on Hover</div>
-                                                        </div>
-                                                    </a>
-
-                                                    <div class="tools tools-bottom">
-                                                        <a href="#">
-                                                            <i class="icon-link"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-paper-clip"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-remove red"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" data-rel="colorbox">
-                                                        <img alt="150x150" src="<?=StaticDir?>images/gallery/thumb-6.jpg" />
-                                                        <div class="text">
-                                                            <div class="inner">Sample Caption on Hover</div>
-                                                        </div>
-                                                    </a>
-
-                                                    <div class="tools tools-bottom">
-                                                        <a href="#">
-                                                            <i class="icon-link"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-paper-clip"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-remove red"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" data-rel="colorbox">
-                                                        <img alt="150x150" src="<?=StaticDir?>images/gallery/thumb-1.jpg" />
-                                                        <div class="text">
-                                                            <div class="inner">Sample Caption on Hover</div>
-                                                        </div>
-                                                    </a>
-
-                                                    <div class="tools tools-bottom">
-                                                        <a href="#">
-                                                            <i class="icon-link"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-paper-clip"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-remove red"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#" data-rel="colorbox">
-                                                        <img alt="150x150" src="<?=StaticDir?>images/gallery/thumb-2.jpg" />
-                                                        <div class="text">
-                                                            <div class="inner">Sample Caption on Hover</div>
-                                                        </div>
-                                                    </a>
-
-                                                    <div class="tools tools-bottom">
-                                                        <a href="#">
-                                                            <i class="icon-link"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-paper-clip"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-pencil"></i>
-                                                        </a>
-
-                                                        <a href="#">
-                                                            <i class="icon-remove red"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div><!-- /#pictures -->
                                     </div>
                                 </div>
                             </div>
@@ -660,12 +232,18 @@
 
 <script src="<?=StaticDir?>js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="<?=StaticDir?>js/jquery.ui.touch-punch.min.js"></script>
-<script src="<?=StaticDir?>js/jquery.gritter.min.js"></script>
+<!-- <script src="<?=StaticDir?>js/jquery.gritter.min.js"></script> -->
 <script src="<?=StaticDir?>js/bootbox.min.js"></script>
-<script src="<?=StaticDir?>js/jquery.slimscroll.min.js"></script>
+<!-- <script src="<?=StaticDir?>js/jquery.slimscroll.min.js"></script>
 <script src="<?=StaticDir?>js/jquery.easy-pie-chart.min.js"></script>
 <script src="<?=StaticDir?>js/jquery.hotkeys.min.js"></script>
 <script src="<?=StaticDir?>js/bootstrap-wysiwyg.min.js"></script>
+<script src="<?=StaticDir?>js/select2.min.js"></script>
+<script src="<?=StaticDir?>js/date-time/bootstrap-datepicker.min.js"></script>
+<script src="<?=StaticDir?>js/fuelux/fuelux.spinner.min.js"></script> 
+<script src="<?=StaticDir?>js/x-editable/bootstrap-editable.min.js"></script>
+<script src="<?=StaticDir?>js/x-editable/ace-editable.min.js"></script>
+<script src="<?=StaticDir?>js/jquery.maskedinput.min.js"></script> -->
 
 <script src="<?=StaticDir?>js/jquery.dataTables.min.js"></script>
 <script src="<?=StaticDir?>js/jquery.dataTables.bootstrap.js"></script>
@@ -673,7 +251,40 @@
 <!-- inline scripts related to this page -->
 
 <script type="text/javascript">
+    var _uid = <?=$info['id']?>;
     jQuery(function($) {
+
+        $(".red").click(function (){
+            var _name   = $(this).attr('data-name');
+            var _val    = $(this).attr('data-val');
+            layer.prompt({
+                title: '请输入要修改的值',
+                value: _val,
+                },
+                function(val){
+                    $.ajax({
+                        type : 'post',
+                        url  : '/member/update/',
+                        data : {uid:_uid,name:_name,value:val},
+                        dataType : 'json',
+                        success : function (data){
+                            if (data.code==1){
+                                layer.msg('操作成功！',{time:1000}, function(){
+                                    $("#"+_name).html(val);
+                                });
+                            }else{
+                                var msg = data.msg ? data.msg : '操作失败，请重试。';
+                                layer.msg(msg);
+                            }
+                        },
+                        error : function (data){
+                            layer.msg('操作失败，请稍后重试。');
+                        }
+                    });
+                }
+            );
+        });
+        
     
         $('#table-buy').dataTable({
             "language": {

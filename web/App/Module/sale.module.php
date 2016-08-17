@@ -44,11 +44,26 @@ class SaleModule extends AppModule
 
     public function getListByUidMoblie($uid, $mobile)
     {
+        if ( $uid <= 0 ) return array();
+        
         $r = array();
-        $r['raw']   = " `uid` = '$uid' OR `phone` = '$mobile' ";
+        if ( empty($mobile) ){
+            $r['eq']    = array('uid'=>$uid);
+        }else{
+            $r['raw']   = " `uid` = '$uid' OR `phone` = '$mobile' ";
+        }        
+        $r['order'] = array('id'=>'desc');
         $r['limit'] = 10000;
 
         return $this->import('contact')->find($r);
+    }
+
+    public function countTodaySale()
+    {
+        $r = array();
+        $r['raw']   = " `date` > ".strtotime(date("Y-m-d"));
+
+        return $this->import('contact')->count($r);
     }
 }
 ?>

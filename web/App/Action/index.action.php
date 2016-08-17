@@ -21,6 +21,13 @@ class IndexAction extends AppAction
 	 */
 	public function index()
 	{
+		$todaySale 	= $this->load('sale')->countTodaySale();
+		$todayBuy 	= $this->load('buy')->countTodayBuy();
+		$todayReg 	= $this->load('member')->countTodayReg();
+
+		$this->set('todaySale', $todaySale);
+		$this->set('todayBuy', $todayBuy);
+		$this->set('todayReg', $todayReg);
 		$this->display();
 	}
 }

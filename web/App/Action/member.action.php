@@ -53,6 +53,8 @@ class MemberAction extends AppAction
 
 			$info['buyList'] 	= $this->load('buy')->getListByUidMoblie($uid, $info['mobile']);
 			$info['saleList'] 	= $this->load('sale')->getListByUidMoblie($uid, $info['mobile']);
+			$doudou				= $this->load('member')->getMemberDoudou($uid);
+			$info['doudou']		= intval($doudou['amount']);
 		}
 		$referr = $this->getReferrUrl('member_view');
 		$this->set('referr', $referr);
@@ -61,12 +63,61 @@ class MemberAction extends AppAction
 		$this->display();
 	}
 
-	// public function ajaxList()
-	// {
-	// 	$list = $this->load('member')->getMemberList();
-	// 	$flag = array('data'=>$list);
-	// 	$this->returnAjax($flag);
-	// }
+	public function buyer()
+	{
+		$uid 	= $this->input('uid', 'int', '0');
+		$type 	= $this->input('t', 'int', '1');
+
+		$info 	= $this->load('member')->getInfoById($uid);
+		if ( !empty($info) ){
+			$info['buyList'] 		= $this->load('buy')->getListByUidMoblie($uid, $info['mobile']);
+			$info['collectList']	= $this->load('member')->getMemberCollect($uid);
+		}
+		$referr = $this->getReferrUrl('member_view');
+		$this->set('referr', $referr);
+		$this->set('info', $info);
+		$this->set('SOURCE', C('SOURCE'));
+		$this->display();
+	}
+
+	public function seller()
+	{
+		$uid 	= $this->input('uid', 'int', '0');
+		$info 	= $this->load('member')->getInfoById($uid);
+		if ( !empty($info) ){
+			$info['saleList'] 	= $this->load('sale')->getListByUidMoblie($uid, $info['mobile']);
+			$info['doudouList'] = $this->load('member')->getMemberDouLog($uid);
+		}
+		$referr = $this->getReferrUrl('member_view');
+		$this->set('referr', $referr);
+		$this->set('info', $info);
+		$this->set('SOURCE', C('SOURCE'));
+		$this->display();
+	}
+
+	public function update()
+	{
+		$uid 	= $this->input('uid', 'int', 0);
+		$name 	= $this->input('name', 'string', '');
+		if ( $uid <= 0 || !in_array($name, array('nickname','doudou')) ){
+			$this->returnAjax(array('code'=>2,'msg'=>'参数错误'));
+		}
+
+		switch ($name) {
+			case 'nickname':
+				$val 	= $this->input('value', 'string', '');
+				if ( empty($val) ) $this->returnAjax(array('code'=>2,'msg'=>'昵称不能为空'));
+				$flag = $this->load('member')->updateNickname($uid, $val);
+				break;			
+			case 'doudou':
+				$val 	= $this->input('value', 'int', 0);
+				if ( !is_int($val) || $val < 0 ) $this->returnAjax(array('code'=>2,'msg'=>'蝉豆应为数字且不能为负数'));
+				$flag = $this->load('member')->updateDoudou($uid, $val);
+				break;
+		}
+		if ( $flag ) $this->returnAjax(array('code'=>1,'msg'=>'操作成功'));
+		$this->returnAjax(array('code'=>2,'msg'=>'操作失败'));
+	}
 
 }
 ?>
