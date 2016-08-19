@@ -110,6 +110,7 @@
                                                                             <th>手机号</th>
                                                                             <th class="hidden-480">姓名</th>
                                                                             <th>商标号</th>
+                                                                            <th>状态</th>
                                                                             <th>底价</th>
                                                                             <th>
                                                                                 <i class="icon-time bigger-110 hidden-480"></i>
@@ -126,6 +127,13 @@
                                                                             <td><?=$v['phone']?></td>
                                                                             <td class="hidden-480"><?=$v['name']?></td>
                                                                             <td><?=$v['number']?></td>
+                                                                            <td>
+                                            <?if ($v['isVerify']==1){?>
+                                                <span class="label label-sm label-success">已审核</span>
+                                            <?}else{?>
+                                                <span class="label label-sm label-purple">待审核</span>
+                                            <?}?>
+                                                                            </td>
                                                                             <td><?=$v['price']?></td>
                                                                             <td class="hidden-480"><?=date("Y-m-d H:i:s",$v['date'])?></td>
                                                                         </tr>  
@@ -164,7 +172,15 @@
                                                                         <tr>
                                                                             <td class="hidden-480"><?=$v['date']?></td>
                                                                             <td><?=$v['note']?></td>
-                                                                            <td><?=$v['types']==2?'-':'+'?><?=$v['amount']?></td>
+                                                                            <td>
+                                            <?if ($v['types']==1){?>
+                                                <span class="label label-sm label-danger">
+                                                +<?=$v['amount']?></span>
+                                            <?}else{?>
+                                                <span class="label label-sm label-success">
+                                                -<?=$v['amount']?></span>
+                                            <?}?>
+                                                                            </td>
                                                                         </tr>  
                                                                     <?}?>                                                  
                                                                     </tbody>

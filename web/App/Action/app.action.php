@@ -106,7 +106,7 @@ abstract class AppAction extends Action
 	/**
 	* 设置用户信息数据
 	*
-	* @author  haydn
+	* @author  Xuni
 	* @since   2016-01-20
 	* @access  public
 	* @return  void
@@ -139,7 +139,7 @@ abstract class AppAction extends Action
 
 	/**
 	* 设置用户信息数据到页面
-	* @author  haydn
+	* @author  Xuni
 	* @since   2016-01-20
 	* @access  public
 	* @return  void
@@ -155,7 +155,7 @@ abstract class AppAction extends Action
 
 	/**
 	* 删除用户信息数据
-	* @author  haydn
+	* @author  Xuni
 	* @since   2016-01-20
 	* @access  public
 	* @return  void

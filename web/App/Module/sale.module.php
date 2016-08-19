@@ -5,7 +5,7 @@
  * 国内商标
  * 
  * @package	Model
- * @author	void
+ * @author	Xuni
  * @since	2016-08-11
  */
 class SaleModule extends AppModule

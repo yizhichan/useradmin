@@ -73,11 +73,17 @@
                                     <div>
                                         <h2 class="blue">
                                             <span class="middle"><?=$info['mobile']?$info['mobile']:$info['email']?></span>
-
-                                            <span class="label label-purple arrowed-in-right">
-                                                <i class="icon-circle smaller-80 align-middle"></i>
-                                                用户名
+                                            <?if($info['isUse']==1){?>
+                                            <span class="label label-success arrowed-in-right">
+                                                <i class="icon-ok smaller-80 align-middle"></i>
+                                                启用
                                             </span>
+                                            <?}else{?>
+                                            <span class="label arrowed">
+                                                <i class="icon-ban-circle smaller-80 align-middle"></i>
+                                                禁用
+                                            </span>
+                                            <?}?>
                                         </h2>
                                     </div>
                                     <div class="tab-content no-border padding-24">
@@ -86,25 +92,31 @@
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-3 center">
                                                     <span class="profile-picture">
-                                                        <img class="editable img-responsive inline" alt="Alex's Avatar" id="avatar2" src="<?=StaticDir?>avatars/profile-pic.jpg" />
+                                                        <img class="editable img-responsive inline" alt="Alex's Avatar" id="avatar2" src="<?if($info['sex']==1){echo StaticDir.'avatars/man.jpg';}else{echo StaticDir.'avatars/girl.jpg';}?>" />
                                                     </span>
 
                                                     <div class="space space-4"></div>
 
-                                                    <a href="#" class="btn btn-sm btn-block btn-success">
+                                                    <a href="javascript:;" data-name="password" data-val="" class="btn btn-sm btn-block btn-success update-info">
                                                         <i class="icon-pencil bigger-120"></i>
                                                         <span class="bigger-110">修改密码</span>
                                                     </a>
 
-                                                    <a href="#" class="btn btn-sm btn-block btn-primary">
+                                                    <a href="javascript:;" class="btn btn-sm btn-block btn-primary">
                                                         <i class="icon-envelope-alt bigger-110"></i>
                                                         <span class="bigger-110">联系他</span>
                                                     </a>
-
-                                                    <a href="#" class="btn btn-sm btn-block btn-danger">
+                                                    <?if($info['isUse']==1){?>
+                                                    <a href="javascript:;" class="btn btn-sm btn-block btn-danger user-isUse">
                                                         <i class="icon-ban-circle bigger-110"></i>
                                                         <span class="bigger-110">冻结账号</span>
                                                     </a>
+                                                    <?}else{?>
+                                                    <a href="javascript:;" class="btn btn-sm btn-block btn-purple user-isUse">
+                                                        <i class="icon-ok bigger-110"></i>
+                                                        <span class="bigger-110">解锁账号</span>
+                                                    </a>
+                                                    <?}?>
                                                 </div><!-- /span -->
 
 
@@ -141,7 +153,7 @@
 
                                                             <div class="profile-info-value">
                                                                 <span id="nickname"><?=$info['nickname']?$info['nickname']:'-'?></span>&nbsp;
-                                                                <a class="red" data-name="nickname" data-val="<?=$info['nickname']?>" href="javascript:;"><i class="icon-pencil bigger-130"></i></a>
+                                                                <a class="red update-info" data-name="nickname" data-val="<?=$info['nickname']?>" href="javascript:;"><i class="icon-pencil bigger-130"></i></a>
                                                             </div>
                                                         </div>
 
@@ -150,7 +162,7 @@
 
                                                             <div class="profile-info-value">
                                                                 <span id="doudou"><?=$info['doudou']?></span>&nbsp;
-                                                                <a class="red" data-name="doudou" data-val="<?=$info['doudou']?>" href="javascript:;"><i class="icon-pencil bigger-130"></i></a>
+                                                                <a class="red update-info" data-name="doudou" data-val="<?=$info['doudou']?>" href="javascript:;"><i class="icon-pencil bigger-130"></i></a>
                                                             </div>
                                                         </div>
 
@@ -159,7 +171,7 @@
 
                                                             <div class="profile-info-value">
                                                                 <span><label class="inline">
-                                                                    <input id="id-button-borders" type="checkbox" class="ace ace-switch ace-switch-5">
+                                                                    <input id="id-button-borders" <?if($info['isVerify']==1){echo 'checked="checked"';}?> type="checkbox" class="ace ace-switch ace-switch-3">
                                                                     <span class="lbl"></span>
                                                                 </label></span>
                                                             </div>
@@ -202,10 +214,95 @@
                                                     
                                                 </div><!-- /span -->
                                             </div><!-- /row-fluid -->
-
-                                                    <div class="hr hr-8 dotted"></div>
+                                            <div class="hr hr-8 dotted"></div>
                                             <div class="space-20"></div>
-                                        </div><!-- #home -->
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-6">
+                                                <div class="widget-box transparent">
+                                                    <div class="widget-header widget-header-small">
+                                                        <h4 class="smaller">
+                                                            <i class="icon-check bigger-110"></i>
+                                                            用户画像(标签)：
+                                                        </h4>
+                                                    </div>
+
+                                                    <div class="widget-body">
+                                                        <div class="widget-main">
+                                                            <div class="tags" style="width:100%;">
+                                                                <?foreach ($info['tags'] as $k => $v) {?>
+                                                                <span class="tag"><?=$v['desc']?>
+                                                                    <button type="button" data-aid="<?=$v['id']?>" class="close addition-del">×</button>
+                                                                </span>
+                                                                <?}?>
+                                                                <input type="text" placeholder="回车添加标签 ..." id="add-tag">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-box transparent">
+                                                    <div class="widget-header widget-header-small">
+                                                        <h4 class="smaller">
+                                                            <i class="icon-check bigger-110"></i>
+                                                            联系方式：
+                                                        </h4>
+                                                    </div>                                                    
+                                                    <div class="space-12"></div>
+
+                                                    <div class="col-sm-5">
+                                                    <label>联系人：</label><input type="text" value="<?=$info['contact']['name']?>" name="contact[]" class="input-sm" placeholder="name">
+                                                    </div>                                                   
+                                                    <div class="col-sm-5">
+                                                    <label>QQ：</label><input type="text" value="<?=$info['contact']['qq']?>" name="contact[]" class="input-sm" placeholder="qq">
+                                                    </div>                                                   
+                                                    <div class="col-sm-2">
+                                                    <button class="btn btn-primary" id="update-contact">修改</button>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                    <label>联系电话：</label>
+                                                    </div>
+                                                    <div class="col-sm-9" style="margin-bottom:10px;">
+                                                    <input type="text" value="<?=$info['contact']['phone']?$info['contact']['phone']:$info['mobile']?>" name="contact[]" class="col-sm-8" placeholder="phone">
+                                                    </div> 
+                                                    <div class="col-sm-3">
+                                                    <label>Email：</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                    <input type="text" value="<?=$info['contact']['email']?$info['contact']['email']:$info['email']?>" name="contact[]" class="col-sm-12" placeholder="email">
+                                                    </div> 
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-6">
+                                                <div class="widget-box transparent">
+                                                    <div class="widget-header widget-header-small header-color-blue2">
+                                                        <h4 class="smaller">
+                                                            <i class="icon-lightbulb bigger-120"></i>
+                                                            用户备注：
+                                                        </h4>
+                                                    </div>
+
+                                                    <div class="widget-body">
+                                                        <div class="widget-main padding-16">
+
+                                                        <?foreach ($info['memo'] as $k => $v) {?>
+                                                            <div class="row">
+                                                            <label><?=$v['desc']?> </label>
+                                                            <span class="pull-right red"><?=$USES[$v['opId']]?> &nbsp; <?=$v['created']?>
+                                                            <button type="button" data-aid="<?=$v['id']?>" class="close addition-del">×</button></span>
+                                                            </div>
+                                                        <?}?>
+
+                                                            <div class="col-sm-10">
+                                                            <textarea class="form-control limited" id="user-memo" rows="5" maxlength="150" placeholder="您可以在此填写针对该用户的各种描述，例：该用户为同行，建议无需太多接触等"></textarea>
+                                                            </div>
+                                                            <div class="col-sm-2"><button class="btn btn-primary" id="add-memo">新增</button></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -234,6 +331,7 @@
 <script src="<?=StaticDir?>js/jquery.ui.touch-punch.min.js"></script>
 <!-- <script src="<?=StaticDir?>js/jquery.gritter.min.js"></script> -->
 <script src="<?=StaticDir?>js/bootbox.min.js"></script>
+<script src="<?=StaticDir?>js/jquery.inputlimiter.1.3.1.min.js"></script>
 <!-- <script src="<?=StaticDir?>js/jquery.slimscroll.min.js"></script>
 <script src="<?=StaticDir?>js/jquery.easy-pie-chart.min.js"></script>
 <script src="<?=StaticDir?>js/jquery.hotkeys.min.js"></script>
@@ -251,14 +349,30 @@
 <!-- inline scripts related to this page -->
 
 <script type="text/javascript">
-    var _uid = <?=$info['id']?>;
+    var _uid    = <?=$info['id']?>;
+    var _isUse  = <?=$info['isUse']?>;
     jQuery(function($) {
 
-        $(".red").click(function (){
+        $(".update-info").click(function (){
             var _name   = $(this).attr('data-name');
             var _val    = $(this).attr('data-val');
+            var _title  = '';
+            switch(_name){
+                case 'nickname':
+                    title = '正在修改用户昵称!';
+                    break;
+                case 'doudou':
+                    title = '正在修改用户蝉豆!!';
+                    break;
+                case 'password':
+                    title = '正在修改用户登录密码!!!';
+                    break;
+                default:
+                    title = '请输入要修改的值';
+                    break;
+            }
             layer.prompt({
-                title: '请输入要修改的值',
+                title: title,
                 value: _val,
                 },
                 function(val){
@@ -285,6 +399,183 @@
             );
         });
         
+        $("#id-button-borders").click(function (){
+            var _this = $(this);
+            if ( _this.is(":checked") ){
+                var _msg    = '确定修改为(需要)审核吗？';
+            }else{
+                var _msg    = '确定修改为(不用)审核吗？';
+            }
+            layer.confirm(_msg, {icon: 3, title:'正在修改新商标审核'}, function(index){
+                $.ajax({
+                    type : 'post',
+                    url  : '/member/update/',
+                    data : {uid:_uid,name:'isVerify',value:_this.is(":checked")?1:0},
+                    dataType : 'json',
+                    success : function (data){
+                        if (data.code==1){
+                            layer.msg('操作成功！', {time:1000}, function(){
+                                layer.close(index);                           
+                            });                            
+                        }else{
+                            var msg = data.msg ? data.msg : '操作失败，请重试。';
+                            layer.msg(msg, {time:1000}, function(){
+                                _this.prop('checked', !_this.is(":checked"));
+                                layer.close(index);
+                            });                            
+                        }
+                    },
+                    error : function (data){
+                        layer.msg('操作失败，请稍后重试。', {time:1000}, function (){
+                            layer.close(index);
+                        });                        
+                    }
+                });
+            },function (){
+                _this.prop('checked', !_this.is(":checked"));
+            });
+        });
+
+        $(".user-isUse").click(function (){            
+            if ( _isUse == 1 ){
+                var _msg    = '确认要冻结用户账号吗？<div class="red">注意：用户将无法登录一只蝉所有平台!</div>';
+            }else{
+                var _msg    = '确认要解锁用户账号吗？<div class="red">注意：用户又能登录一只蝉所有平台啦!</div>';
+            }
+            layer.confirm(_msg, {icon: 2, title:'正在冻结/解锁用户账号'}, function(index){
+                $.ajax({
+                    type : 'post',
+                    url  : '/member/update/',
+                    data : {uid:_uid,name:'isUse',value:_isUse==1?0:1},
+                    dataType : 'json',
+                    success : function (data){
+                        if (data.code==1){
+                            layer.msg('操作成功！', {time:1000}, function(){
+                                layer.close(index);
+                                window.location.reload();
+                            });                            
+                        }else{
+                            var msg = data.msg ? data.msg : '操作失败，请重试。';
+                            layer.msg(msg, {time:1000}, function(){
+                                layer.close(index);
+                            });                            
+                        }
+                    },
+                    error : function (data){
+                        layer.msg('操作失败，请稍后重试。', {time:1000}, function (){
+                            layer.close(index);
+                        });                        
+                    }
+                });
+            });
+        });
+
+        $("#add-tag").keydown(function (e){
+            if ( e.keyCode != 13 ) return ;
+            var _val = $(this).val();
+            if ( _val == '' ) return ;
+            $.ajax({
+                type : 'post',
+                url  : '/member/addition/',
+                data : {uid:_uid,type:'1',desc:_val},
+                dataType : 'json',
+                success : function (data){
+                    if (data.code==1){
+                        layer.msg('操作成功！', {time:1000}, function(){
+                            window.location.reload();
+                        });                            
+                    }else{
+                        var msg = data.msg ? data.msg : '操作失败，请重试。';
+                        layer.msg(msg, {time:1000});                            
+                    }
+                },
+                error : function (data){
+                    layer.msg('操作失败，请稍后重试。', {time:1000}, function (){
+                        layer.close(index);
+                    });                        
+                }
+            });
+        });
+
+        $("#add-memo").click(function (){
+            var _val = $("#user-memo").val();
+            if ( _val == '' ) return ;
+            $.ajax({
+                type : 'post',
+                url  : '/member/addition/',
+                data : {uid:_uid,type:'2',desc:_val},
+                dataType : 'json',
+                success : function (data){
+                    if (data.code==1){
+                        layer.msg('操作成功！', {time:1000}, function(){
+                            window.location.reload();
+                        });                            
+                    }else{
+                        var msg = data.msg ? data.msg : '操作失败，请重试。';
+                        layer.msg(msg, {time:1000});                            
+                    }
+                },
+                error : function (data){
+                    layer.msg('操作失败，请稍后重试。', {time:1000}, function (){
+                        layer.close(index);
+                    });                        
+                }
+            });
+        });
+
+        $("#update-contact").click(function (){            
+            var _val    = $("input[name^='contact']");
+            var _list   = [];
+            _val.each(function(k,v){
+                _list[k] = v.value;
+            });
+            var _str = _list.join(',');
+            $.ajax({
+                type : 'post',
+                url  : '/member/updateContactInfo/',
+                data : {uid:_uid, desc:_str},
+                dataType : 'json',
+                success : function (data){
+                    if (data.code==1){
+                        layer.msg('操作成功！', {time:1000}, function(){
+                            window.location.reload();
+                        });                            
+                    }else{
+                        var msg = data.msg ? data.msg : '操作失败，请重试。';
+                        layer.msg(msg, {time:1000});                            
+                    }
+                },
+                error : function (data){
+                    layer.msg('操作失败，请稍后重试。', {time:1000});                        
+                }
+            });
+        });
+
+        $(".addition-del").click(function (){
+            var _aid = $(this).attr('data-aid');
+            if ( _aid <= 0 ) return ;
+            $.ajax({
+                type : 'post',
+                url  : '/member/delAddition/',
+                data : {aid:_aid},
+                dataType : 'json',
+                success : function (data){
+                    if (data.code==1){
+                        layer.msg('操作成功！', {time:1000}, function(){
+                            window.location.reload();
+                        });                            
+                    }else{
+                        var msg = data.msg ? data.msg : '操作失败，请重试。';
+                        layer.msg(msg, {time:1000});                            
+                    }
+                },
+                error : function (data){
+                    layer.msg('操作失败，请稍后重试。', {time:1000}, function (){
+                        layer.close(index);
+                    });                        
+                }
+            });
+        });
     
         $('#table-buy').dataTable({
             "language": {
@@ -296,52 +587,10 @@
                 "url": "<?=StaticDir?>lang/zh_CN.txt"
             }
         });
-
-        //////////////////////////////
-        $('.profile-social-links > a').tooltip();
     
-        $('.easy-pie-chart.percentage').each(function(){
-        var barColor = $(this).data('color') || '#555';
-        var trackColor = '#E2E2E2';
-        var size = parseInt($(this).data('size')) || 72;
-        $(this).easyPieChart({
-            barColor: barColor,
-            trackColor: trackColor,
-            scaleColor: false,
-            lineCap: 'butt',
-            lineWidth: parseInt(size/10),
-            animate:false,
-            size: size
-        }).css('color', barColor);
-        });
-      
-        ///////////////////////////////////////////
-    
-        //show the user info on right or left depending on its position
-        $('#user-profile-2 .memberdiv').on('mouseenter', function(){
-            var $this = $(this);
-            var $parent = $this.closest('.tab-pane');
-    
-            var off1 = $parent.offset();
-            var w1 = $parent.width();
-    
-            var off2 = $this.offset();
-            var w2 = $this.width();
-    
-            var place = 'left';
-            if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) place = 'right';
-            
-            $this.find('.popover').removeClass('right left').addClass(place);
-        }).on('click', function() {
-            return false;
-        });
-
-        //change profile
-        $('[data-toggle="buttons"] .btn').on('click', function(e){
-            var target = $(this).find('input[type=radio]');
-            var which = parseInt(target.val());
-            $('.user-profile').parent().addClass('hide');
-            $('#user-profile-'+which).parent().removeClass('hide');
+        $('textarea.limited').inputlimiter({
+            remText: '%n 字符剩余...',
+            limitText: '最大字符数 : %n.'
         });
     });
 </script>

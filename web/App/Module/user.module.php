@@ -33,6 +33,15 @@ class UserModule extends AppModule
 		return $this->import('user')->find($r);
 	}
 
+	public function getAllUserName()
+	{
+		$r = array();
+		$r['limit']	= 1000;
+
+		$list = $this->import('user')->find($r);
+		return arrayColumn($list, 'username', 'id');
+	}
+
 	public function getList($param, $page, $num)
 	{
 		$r = array();

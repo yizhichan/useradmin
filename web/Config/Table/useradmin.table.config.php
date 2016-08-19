@@ -15,5 +15,11 @@ $tbl['adminUser'] = array(
 	'configFile'=> $configFile,
 );
 
+$tbl['userAddition'] = array(
+	'name'		=> $prefix.'user_addition',
+	'dbId'		=> $dbId, 
+	'configFile'=> $configFile,
+);
+
 
 ?>
