@@ -16,6 +16,12 @@ abstract class AppModule extends Module
 		$this->getLoginUser();
 	}
 
+	public function getDb($dbName='')
+	{
+		if ( empty($dbName) ) return false;
+		return new DbQuery($dbName);
+	}
+
 	/**
 	 * 获取业务对象(系统对接时使用)
 	 * @author	void
