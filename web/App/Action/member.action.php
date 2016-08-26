@@ -188,7 +188,8 @@ class MemberAction extends AppAction
         $uid    = $this->input('uid', 'int', 0);
         $desc   = $this->input('desc', 'string', '');
         $strArr = explode(',', $desc);
-        if ( empty(array_filter($strArr)) ){
+        $tmpArr = array_filter($strArr);
+        if ( empty($tmpArr) ){
              $this->returnAjax(array('code'=>2,'msg'=>'请填写数据'));
         }
         $data   = array();
