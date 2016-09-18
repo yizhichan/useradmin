@@ -39,6 +39,18 @@ $tbl['passSale'] = array(
 	'configFile'=> $configFile,
 );
 
+$tbl['quotation'] = array(
+	'name'		=> $prefix.'quotation',
+	'dbId'		=> $dbId, 
+	'configFile'=> $configFile,
+);
+
+$tbl['quotationItems'] = array(
+	'name'		=> $prefix.'quotation_items',
+	'dbId'		=> $dbId, 
+	'configFile'=> $configFile,
+);
+
 $tbl['total'] = array(
 	'name'		=> $prefix.'total',
 	'dbId'		=> $dbId, 
@@ -47,6 +59,12 @@ $tbl['total'] = array(
 
 $tbl['totalLog'] = array(
 	'name'		=> $prefix.'total_log',
+	'dbId'		=> $dbId, 
+	'configFile'=> $configFile,
+);
+
+$tbl['userImage'] = array(
+	'name'		=> $prefix.'user_image',
 	'dbId'		=> $dbId, 
 	'configFile'=> $configFile,
 );

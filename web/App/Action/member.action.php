@@ -91,6 +91,7 @@ class MemberAction extends AppAction
         if ( !empty($info) ){
             $info['saleList']   = $this->load('sale')->getListByUidMoblie($uid, $info['mobile']);
             $info['doudouList'] = $this->load('member')->getMemberDouLog($uid);
+            $info['memuList']   = $this->load('seller')->getQuotationList($uid);
         }
         $referr = $this->getReferrUrl('member_view');
         $this->set('referr', $referr);

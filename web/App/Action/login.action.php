@@ -30,7 +30,7 @@ class LoginAction extends AppAction
         $this->display();
     }
 
-    protected function login()
+    public function login()
     {
         $uname     	= $this->input('uname', 'string', '');
         $upass     	= $this->input('upass', 'string', '');
