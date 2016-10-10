@@ -1,4 +1,7 @@
 <?
+if (php_sapi_name() != "cli") {
+    exit("only run in command line mode \n");
+}
 /**
  * 项目入口
  注意！！！
